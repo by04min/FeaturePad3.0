@@ -2,10 +2,9 @@ import { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import CloseIcon from '@mui/icons-material/Close'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
-import { FEATURE_NAMES } from '../data/phonemeFeatures.js'
+import { FEATURE_GROUPS } from '../data/phonemeFeatures.js'
 import { RuleContradictionError, RuleNonMinimalWarning } from '../components/ErrorMessages.jsx'
 import { newRow } from './ruleValidation.js'
-import {FEATURE_GROUPS} from '../data/phonemeFeatures.js'
 
 const VALUES = ['+', '-', '0']
 
@@ -38,7 +37,7 @@ function FeatureRow({ row, onChange, onRemove, excludeFeatures = new Set() }) {
         <option value=""></option>
         {FEATURE_GROUPS.map((group) => {
           // skip features already used in other rows
-          const available = group.features.fliter((f) => !excludeFeatures.has(f) || f === row.feature)
+          const available = group.features.filter((f) => !excludeFeatures.has(f) || f === row.feature)
           return (
             // hide the whole group if nothing in it is left to choose
             available.length > 0 && (
