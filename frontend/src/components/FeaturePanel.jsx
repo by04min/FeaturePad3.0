@@ -1,47 +1,11 @@
-import { PHONEME_FEATURES } from '../data/phonemeFeatures'
+import { PHONEME_FEATURES, FEATURE_GROUPS } from '../data/phonemeFeatures'
 import { FeatureValueBadge } from './Badges'
 
 /*
 01. FEATURE GROUPS
     How the features are grouped (and laid out) on the card
 */
-const FEATURE_GROUPS = [
-  {
-    label: 'Prosodic',
-    features: ['syllabic', 'stress', 'long', 'tense'],
-  },
-  {
-    label: 'Manner',
-    cols: 2,
-    features: [
-      'consonantal',
-      'sonorant',
-      'continuant',
-      'delayed release',
-      'approximant',
-      'tap',
-      'trill',
-      'nasal',
-      'lateral',
-    ],
-  },
-  {
-    label: 'Laryngeal',
-    features: ['voice', 'spread gl', 'constr gl'],
-  },
-  {
-    label: 'Labial',
-    features: ['labial', 'round', 'labiodental'],
-  },
-  {
-    label: 'Coronal',
-    features: ['coronal', 'anterior', 'distributed', 'strident'],
-  },
-  {
-    label: 'Dorsal',
-    features: ['dorsal', 'high', 'low', 'front', 'back'],
-  },
-]
+
 
 /*
 02. FEATURE PANEL

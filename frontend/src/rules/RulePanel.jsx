@@ -5,6 +5,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import { FEATURE_NAMES } from '../data/phonemeFeatures.js'
 import { RuleContradictionError, RuleNonMinimalWarning } from '../components/ErrorMessages.jsx'
 import { newRow } from './ruleValidation.js'
+import {FEATURE_GROUPS} from '../data/phonemeFeatures.js'
 
 const VALUES = ['+', '-', '0']
 
@@ -35,11 +36,22 @@ function FeatureRow({ row, onChange, onRemove, excludeFeatures = new Set() }) {
         className={`border border-slate-200 rounded-[4px] px-[6px] py-[4px] text-[14px] font-light w-50 text-black bg-white dark:bg-gray-100`}
       >
         <option value=""></option>
-        {FEATURE_NAMES.filter((f) => !excludeFeatures.has(f) || f === row.feature).map((f) => (
-          <option key={f} value={f}>
-            {f}
-          </option>
-        ))}
+        {FEATURE_GROUPS.map((group) => {
+          // skip features already used in other rows
+          const available = group.features.fliter((f) => !excludeFeatures.has(f) || f === row.feature)
+          return (
+            // hide the whole group if nothing in it is left to choose
+            available.length > 0 && (
+              <optgroup key={group.label} label={group.label}>
+                {available.map((f) => (
+                  <option key={f} value={f}>
+                    {f}
+                  </option>
+                ))} 
+                </optgroup>
+            )
+          )
+        })}
       </select>
 
   
@@ -80,7 +92,7 @@ function FeatureColumn({ label, rows, onChange }) {
           </span>
         </button>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-1">
         {rows.map((row, i) => {
           const excludeFeatures = new Set(
             rows

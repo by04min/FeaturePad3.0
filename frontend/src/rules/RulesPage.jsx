@@ -9,6 +9,8 @@ import { useTransforms } from './hooks/useTransforms.js'
 import { useRuleCheck } from './hooks/useRuleCheck.js'
 import { hasRedundantTargetFeatures, hasRedundantChangeFeatures, newRow, rowsToSpec } from './ruleValidation.js'
 import { useRuleStore } from '../store/ruleStore.js'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 /*
 01. FEATURE PAD
@@ -24,6 +26,9 @@ export default function RulesPage() {
 
   // Whether results are shown as a "sheet" or a "table"
   const [view, setView] = useState('sheet')
+
+  // State for whether the rule panel is expanded or hidden
+  const [rulePanelOpen, setRulePanelOpen] = useState(true)
 
   // The rows turned into a rule; half-filled rows are ignored
   const targetFeatures = useMemo(() => rowsToSpec(targetRows), [targetRows])
@@ -68,26 +73,40 @@ export default function RulesPage() {
       {/* Top section (stays in place): title, rule panel, and the Sheet/Table switch */}
       <div className={`shrink-0 space-y-[32px] pb-6 transition-colors duration-300 bg-white dark:bg-[#0E1116]`}>
         <div className="space-y-[4px]">
-          <h1 className="text-[28px]">Rule Application</h1>
+          <div className="flex items-center gap-1">
+            <h1 className="text-[28px]">Rule Application</h1>
+            <button
+              type="button"
+              onClick={() => setRulePanelOpen((o) => !o)}
+              aria-expanded={rulePanelOpen}
+              aria-label={rulePanelOpen ? 'Hide rule panel' : 'Show rule panel'}
+              className="flex items-center hover:text-slate-600 dark:hover:text-gray-300"
+              >
+                {rulePanelOpen ? <KeyboardArrowUpIcon style={{ fontSize: 24 }} /> : <KeyboardArrowDownIcon style={{ fontSize: 24 }} />}
+              </button>
+              </div>
           <p className={`text-[16px] font-light text-gray-500 dark:text-gray-400`}>
             Pick out sounds by features, and apply feature rules
           </p>
         </div>
+        
 
         {error && <div className="text-sm text-rose-600">{error}</div>}
 
-        <RulePanel
-          targetRows={targetRows}
-          featureChangeRows={changeRows}
-          onTargetChange={setTargetRows}
-          onChangesChange={setChangeRows}
-          validation={{
-            targetContradictions: contradictions.target_contradictions,
-            changeContradictions: contradictions.change_contradictions,
-            redundantTarget,
-            redundantChanges,
+        {rulePanelOpen && (
+          <RulePanel
+            targetRows={targetRows}
+            featureChangeRows={changeRows}
+            onTargetChange={setTargetRows}
+            onChangesChange={setChangeRows}
+            validation={{
+              targetContradictions: contradictions.target_contradictions,
+              changeContradictions: contradictions.change_contradictions,
+              redundantTarget,
+              redundantChanges,
           }}
         />
+        )}
 
         {inventory.length > 0 && visibleInventory.length > 0 && (
           <div className="flex gap-2 justify-start items-center">
