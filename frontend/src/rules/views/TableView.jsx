@@ -156,6 +156,7 @@ export default function TableView({ inventory, transforms = {}, diacriticFeature
         }}
         cellWidth="w-40"
         slotWidth="w-20"
+        scrollConsonantsX={false}
       />
     </div>
   )

@@ -227,7 +227,7 @@ export default function InventoryPage() {
           </div>
         )}
         
-        <div className="absolute inset-0 overflow-y-auto space-y-[32px]">
+        <div className="absolute inset-0 overflow-auto scrollbar-always space-y-[32px]">
           <IpaTableGrid
             activeManners={MANNERS}
             activePlaces={PLACES}
@@ -243,6 +243,7 @@ export default function InventoryPage() {
             )}
             cellWidth="w-28"
             slotWidth="w-14"
+            scrollConsonantsX = {false}
           />
         </div>
       </div>

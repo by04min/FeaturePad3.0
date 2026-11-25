@@ -7,7 +7,7 @@ import { FEATURE_NAMES } from '../../data/phonemeFeatures.js'
 */
 export default function SheetView({ inventory, resolveFeatures, transforms = {} }) {
   return (
-    <div className="relative overflow-x-auto">
+    <div className="relative w-max min-w-full">
       <table className={`border-collapse text-[12px] font-light text-black bg-white dark:bg-slate-50`}>
         <thead>
           <tr>

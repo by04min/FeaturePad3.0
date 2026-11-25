@@ -83,7 +83,7 @@ function MatrixTable({ title, rows, cols, cells, diacriticRows, cornerWidth, scr
   return (
     <section className="space-y-[8px] font-light">
       <h3 className="text-[16px]">{title}</h3>
-      {scrollX ? <div className="overflow-x-auto">{table}</div> : table}
+      {scrollX ? <div className="overflow-x-auto scrollbar-always">{table}</div> : table}
     </section>
   )
 }
@@ -115,6 +115,7 @@ export function IpaTableGrid({
   // Cell width, and the width of one sound within a cell
   cellWidth = 'w-28',
   slotWidth = 'w-14',
+  scrollConsonantsX=true,
 }) {
   const tableCls = `border-collapse text-xs text-black bg-white dark:bg-slate-50`
   const headerCellCls = `border border-slate-200 text-center font-light px-[8px] py-[12px] ${cellWidth} bg-slate-50 dark:bg-gray-100 text-[12px]`
@@ -125,7 +126,7 @@ export function IpaTableGrid({
   const matrixStyles = { tableCls, headerCellCls, rowHeaderCls, dataCellCls, subRowProps, renderSymbol }
 
   return (
-    <div className="space-y-[32px]">
+    <div className="space-y-[32px] w-max min-w-full">
       {/* ── CONSONANTS ── */}
       {activeManners.length > 0 && (
         <MatrixTable

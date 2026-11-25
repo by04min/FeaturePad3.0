@@ -2,6 +2,18 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* makes the scrollba always show (for Chrome, Edg) */
+.scrollbar-always::-webkit-scrollbar { width: 8px; height: 8px; } /* scrollbar thickness */
+.scrollbar-always::-webkit-scrollbar-track { background: rgb(0 0 0 / 0.03); } /* the faint strip the scrollbar sits i */
+.scrollbar-always::-webkit-scrollbar-thumb { background: rgb(148 163 184 / 0.5); border-radius: 4px; } /* the grey bar you grag */
+
+.dark .scrollbar-always::-webkit-scrollbar-track { background: rgb(255 255 255 / 0.05); } /* for dark mode*/
+
+/* Firefox needs a different setting */
+@supports not selector(::-webkit-scrollbar) {
+  .scrollbar-always { scrollbar-color: rgb(148 163 184 / 0.5) transparent; }
+}
+
 @theme {
   --font-sans: 'Inter';
 }

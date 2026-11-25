@@ -134,7 +134,7 @@ export default function RulesPage() {
             <span className={`text-sm text-slate-600 dark:text-gray-400`}>Applying rules...</span>
           </div>
         )}
-        <div className="absolute inset-0 overflow-y-auto">
+        <div className="absolute inset-0 overflow-auto scrollbar-always">
           {inventory.length === 0 ? (
             <div className="flex h-full items-center justify-center gap-1">
               <span className={`text-[14px] font-light text-slate-600 dark:text-gray-400`}>
